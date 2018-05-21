@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Нахождение центра масс</title>
+    <script src="{{ url_for('static', filename='jquery.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
+    <script src="{{ url_for('static', filename='dice.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dice.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.3/dist/loadingoverlay.min.js"></script>
+</head>
+<body onload="init()">
+<div class="row" id="content">
+    <div class="col-12">
+        <canvas id="centerMass" width="5000px" height="2000px" class="border border-dark">
+        </canvas>
+    </div>
+    <div class="col-2 pt-2" id="controls" hidden>
+        <button class="btn btn-dark btn-block" disabled>Finish</button>
+    </div>
+    <div id="addPoint" class="modal">
+        <div class="form-group">
+            <input type="number" id="px" class="form-control form-control-sm" placeholder="x">
+        </div>
+        <div class="form-group">
+            <input type="number" id="py" class="form-control form-control-sm" placeholder="y">
+        </div>
+        <div class="float-right">
+            <button id="addPointBtn" class="btn btn-primary"><a href="#" style="color: inherit">Add</a></button>
+            <button class="btn btn-danger"><a href="#" rel="modal:close" style="color: inherit">Cancel</a></button>
+        </div>
+    </div>
+    <div id="infoM" class="modal">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>
+                    <table class="table mb-0 border-top-0">
+                        <thead>
+                        <tr>
+                            <td colspan="2">Центр Масс:</td>
+                        </tr>
+                        <tr>
+                            <td>x</td>
+                            <td>y</td>
+                        </tr>
+                        </thead>
+                        <tbody id="centroidInfo">
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td colspan="2">Точки:</td>
+                        </tr>
+                        <tr>
+                            <td>x</td>
+                            <td>y</td>
+                        </tr>
+                        </thead>
+                        <tbody id="pointsInfo">
+
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="animationInfo" class="modal">
+        <form>
+            <input type="number" class="form-control form-control-sm m-1" name="speed" id="speed" placeholder="Скорость">
+            <input type="number" class="form-control form-control-sm m-1" name="angle" id="angle" placeholder="Угол">
+            <button type="button" class="btn btn-primary" id="start">АНИМИРУЙ МЕНЯ</button>
+        </form>
+    </div>
+    <div id="menu" class="w-50">
+        <ul class="dice-menu">
+            <li><span>Меню</span></li>
+            <li id="finishBtn" disabled><span>Соединить</span></li>
+            <li id="add" href="#" rel="modal:open"><span>Добавить точку</span></li>
+            <li id="info" href="#"><span>Инфо</span></li>
+            <li id="animate" href="#"><span>Анимировать</span></li>
+        </ul>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#add').click(function () {
+            $('#addPoint').modal({
+                closeClass: 'icon-remove',
+                closeText: '!'
+            });
+        });
+        $('#addPointBtn').click(function () {
+            createPoint(new Point2D($('#px').val(), $('#py').val()));
+        });
+        $('#info').click(function () {
+            $('#infoM').modal();
+        });
+        $('#animate').click(function () {
+            $('#animationInfo').modal();
+        });
+    });
+
+</script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+
+</body>
+</html>

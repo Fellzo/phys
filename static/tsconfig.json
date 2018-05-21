@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node"
+  },
+  "files": [
+    "main.ts"
+  ],
+  "include": [
+    "../node_modules/gasparesganga-jquery-loading-overlay"
+  ]
+}
